@@ -272,24 +272,24 @@ async function seedDatabase() {
     create: { name: "#jogos" },
   });
   const salt = bcrypt.genSaltSync(10);
-  const passwordAna = bcrypt.hashSync("123", salt);
-  const passwordJoao = bcrypt.hashSync("456", salt);
+  const passwordJr = bcrypt.hashSync("123", salt);
+  const passwordWilker = bcrypt.hashSync("456", salt);
   await prisma.user.upsert({
-    where: { username: "ana" },
-    update: { avatarUrl: "https://i.pravatar.cc/150?u=ana" },
+    where: { username: "jr" },
+    update: { avatarUrl: "https://i.pravatar.cc/150?u=jr" },
     create: {
-      username: "ana",
-      password: passwordAna,
-      avatarUrl: "https://i.pravatar.cc/150?u=ana",
+      username: "jr",
+      password: passwordJr,
+      avatarUrl: "https://i.pravatar.cc/150?u=jr",
     },
   });
   await prisma.user.upsert({
-    where: { username: "joao" },
-    update: { avatarUrl: "https://i.pravatar.cc/150?u=joao" },
+    where: { username: "wilker" },
+    update: { avatarUrl: "https://i.pravatar.cc/150?u=wilker" },
     create: {
-      username: "joao",
-      password: passwordJoao,
-      avatarUrl: "https://i.pravatar.cc/150?u=joao",
+      username: "wilker",
+      password: passwordWilker,
+      avatarUrl: "https://i.pravatar.cc/150?u=wilker",
     },
   });
   console.log("Banco de dados pronto.");
