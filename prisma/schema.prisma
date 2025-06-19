@@ -1,0 +1,46 @@
+// Conteúdo completo para o seu ficheiro prisma/schema.prisma
+
+// Bloco 1: Define como o cliente Prisma será gerado. (DEVE HAVER APENAS UM)
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Bloco 2: Define a conexão com o banco de dados. (DEVE HAVER APENAS UM)
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// Bloco 3: Definição dos nossos modelos de dados.
+
+// Modelo para os Utilizadores
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  avatarUrl String?  // <-- ADICIONE ESTA LINHA
+
+  messages  Message[]
+}
+
+// Modelo para as Salas de Chat
+model Room {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+
+  // Relação: Uma sala pode ter muitas mensagens
+  messages  Message[]
+}
+
+// Modelo para as Mensagens
+model Message {
+  id        Int      @id @default(autoincrement())
+  text      String
+  createdAt DateTime @default(now())
+
+  authorId  Int
+  roomId    Int
+  
+  author    User     @relation(fields: [authorId], references: [id])
+  room      Room     @relation(fields: [roomId], references: [id])
+}
